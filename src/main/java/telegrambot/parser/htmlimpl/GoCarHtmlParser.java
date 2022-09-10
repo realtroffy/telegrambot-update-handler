@@ -6,6 +6,8 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import telegrambot.service.DocumentHtmlParserService;
 
+import java.io.IOException;
+
 @Service
 @AllArgsConstructor
 public class GoCarHtmlParser {
@@ -20,7 +22,7 @@ public class GoCarHtmlParser {
 
   private final DocumentHtmlParserService documentHtmlParserService;
 
-  public String getMessageFromDocument(String urlForParse) {
+  public String getMessageFromDocument(String urlForParse) throws IOException {
     Document document = documentHtmlParserService.getDocumentFromUrl(urlForParse);
 
     Elements date = documentHtmlParserService.getElementsFromDocument(document, DATE_NAME_QUERY);

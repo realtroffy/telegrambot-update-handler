@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Service;
-import telegrambot.error.CreateObjectFromXmlSourceException;
 import telegrambot.error.GetBodyFromStringXmlException;
 import telegrambot.model.CHGKQuestion;
 import telegrambot.parser.XmlParser;
@@ -31,9 +30,9 @@ public class CHGKXmlParser implements XmlParser {
   public static final String PICTURE_URL = "https://db.chgk.info/images/db/";
 
   private final WebClientService webClientService;
-  private MappingJackson2XmlHttpMessageConverter xmlConverter;
+  private final MappingJackson2XmlHttpMessageConverter xmlConverter;
 
-  public Map<String, Object> processQuestionButton() {
+  public Map<String, Object> processQuestionButton() throws JsonProcessingException {
     Map<String, Object> questionInfo = new HashMap<>();
     ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity();
 
@@ -86,15 +85,12 @@ public class CHGKXmlParser implements XmlParser {
     return pictureUrls;
   }
 
-  private CHGKQuestion convertStringXmlToCHGKQuestion(String responseWithoutNewLine) {
+  private CHGKQuestion convertStringXmlToCHGKQuestion(String responseWithoutNewLine)
+      throws JsonProcessingException {
     ObjectMapper xmlMapper = xmlConverter.getObjectMapper();
     xmlMapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
     CHGKQuestion chgkQuestion;
-    try {
-      chgkQuestion = xmlMapper.readValue(responseWithoutNewLine, CHGKQuestion.class);
-    } catch (JsonProcessingException e) {
-      throw new CreateObjectFromXmlSourceException("Couldn't read xml source");
-    }
+    chgkQuestion = xmlMapper.readValue(responseWithoutNewLine, CHGKQuestion.class);
     return chgkQuestion;
   }
 }

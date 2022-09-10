@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 @Configuration
 public class SetWebhookConfig {
 
-  @Value("${telegrambot.webHookPath}")
+  @Value("${custom.telegrambot.webHookPath}")
   private String botPath;
 
   @Bean

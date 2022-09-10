@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import telegrambot.service.DocumentHtmlParserService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class KFCHtmlParser {
 
   private final DocumentHtmlParserService documentHtmlParserService;
 
-  public List<String> getMessageFromDocument(String urlForParse) {
+  public List<String> getMessageFromDocument(String urlForParse) throws IOException {
     Document document = documentHtmlParserService.getDocumentFromUrl(urlForParse);
 
     Elements coupon =

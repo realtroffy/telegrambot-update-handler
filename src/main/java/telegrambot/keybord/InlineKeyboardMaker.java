@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(prefix = "inline", name = "keyboard", havingValue = "on")
+@ConditionalOnProperty(prefix = "custom.telegrambot.inline", name = "keyboard", havingValue = "on")
 public class InlineKeyboardMaker {
 
   public ReplyKeyboard getInlineKeyboard() {

@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Column;
@@ -27,6 +27,7 @@ import java.time.ZoneId;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class UserWriteBot implements Serializable {
 
   private static final long serialVersionUID = 1450259395197917962L;
@@ -57,26 +58,27 @@ public class UserWriteBot implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
 
-    if (!(o instanceof UserWriteBot)) return false;
+    if (o == null || getClass() != o.getClass()) return false;
 
     UserWriteBot that = (UserWriteBot) o;
 
-    return new EqualsBuilder().append(id, that.id).append(firstName, that.firstName).append(lastName, that.lastName).append(dateMessage, that.dateMessage).append(buttonName, that.buttonName).isEquals();
+    return new EqualsBuilder()
+        .append(id, that.id)
+        .append(firstName, that.firstName)
+        .append(lastName, that.lastName)
+        .append(dateMessage, that.dateMessage)
+        .append(buttonName, that.buttonName)
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(id).append(firstName).append(lastName).append(dateMessage).append(buttonName).toHashCode();
-  }
-
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this)
-        .append("id", id)
-        .append("firstName", firstName)
-        .append("lastName", lastName)
-        .append("dateMessage", dateMessage)
-        .append("buttonName", buttonName)
-        .toString();
+    return new HashCodeBuilder(17, 37)
+        .append(id)
+        .append(firstName)
+        .append(lastName)
+        .append(dateMessage)
+        .append(buttonName)
+        .toHashCode();
   }
 }

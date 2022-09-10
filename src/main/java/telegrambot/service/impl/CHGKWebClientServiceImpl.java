@@ -12,7 +12,7 @@ import java.time.Duration;
 @Service
 public class CHGKWebClientServiceImpl implements WebClientService {
 
-  @Value("${question.url}")
+  @Value("${custom.telegrambot.questionUrl}")
   private String questionUrl;
 
   private final WebClient webClient;

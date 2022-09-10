@@ -14,10 +14,10 @@ import org.telegram.telegrambots.starter.SpringWebhookBot;
 @Component
 public class TelegramBot extends SpringWebhookBot {
 
-  @Value("${telegrambot.webHookPath}")
+  @Value("${custom.telegrambot.webHookPath}")
   private String botPath;
 
-  @Value("${telegrambot.userName}")
+  @Value("${custom.telegrambot.userName}")
   private String botUsername;
 
   @Value("${TELEGRAMBOT_TOKEN}")
