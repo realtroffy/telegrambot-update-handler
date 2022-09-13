@@ -89,8 +89,6 @@ public class CHGKXmlParser implements XmlParser {
       throws JsonProcessingException {
     ObjectMapper xmlMapper = xmlConverter.getObjectMapper();
     xmlMapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
-    CHGKQuestion chgkQuestion;
-    chgkQuestion = xmlMapper.readValue(responseWithoutNewLine, CHGKQuestion.class);
-    return chgkQuestion;
+    return xmlMapper.readValue(responseWithoutNewLine, CHGKQuestion.class);
   }
 }
