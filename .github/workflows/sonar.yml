@@ -36,5 +36,5 @@ jobs:
           JDBC_DATABASE_PASSWORD: ${{secrets.JDBC_DATABASE_PASSWORD}}
           TELEGRAMBOT_TOKEN: ${{secrets.TELEGRAMBOT_TOKEN}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=realtroffy_Telegram_bot -Dsonar.organization=realtroffy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN2 }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=realtroffy_telegrambot-update-handler -Dsonar.organization=realtroffy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN2 -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
