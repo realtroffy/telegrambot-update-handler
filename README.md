@@ -6,9 +6,8 @@ telegrambot-update-handler" >
 <br>
 
 CI by travis ci(clickable):
-<a href="https://app.travis-ci.com/github/realtroffy/telegrambot-update-handler" >
-<img src="https://app.travis-ci.com/realtroffy/
-telegrambot-update-handler.svg?branch=main"/>
+<a href="https://app.travis-ci.com/github/realtroffy/telegrambot-update-handler">
+<img src="https://app.travis-ci.com/realtroffy/telegrambot-update-handler.svg?branch=main"/>
 </a>
 
 Sonar quality gate(clickable):
