@@ -10,6 +10,6 @@ CI by travis ci(clickable):
 </a>
 
 Sonar quality gate(clickable):
-<a href="https://sonarcloud.io/dashboard?id=realtroffy_Telegram_bot&branch=master" >
+<a href="https://sonarcloud.io/dashboard?id=realtroffy_telegrambot-update-handler&branch=main" >
 <img width=30 height=30 src="https://pbs.twimg.com/profile_images/955394530806829056/LC7DAYM3_reasonably_small.jpg"/>
 </a>
