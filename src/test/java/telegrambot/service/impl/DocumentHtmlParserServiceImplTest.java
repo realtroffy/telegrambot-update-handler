@@ -32,7 +32,7 @@ class DocumentHtmlParserServiceImplTest {
   void getDocumentFromUrlTest() throws IOException {
     try (MockedStatic<Jsoup> utilities = Mockito.mockStatic(Jsoup.class)) {
       utilities.when(() -> Jsoup.connect(anyString())).thenReturn(connection);
-      utilities.when(() -> connection.get()).thenReturn(document);
+      utilities.when(connection::get).thenReturn(document);
       assertThat(Jsoup.connect(anyString()).get()).isEqualTo(document);
     }
   }
