@@ -1,3 +1,9 @@
+You can find this bot in telegram:
+<a href="https://t.me/Training_art_bot">
+<img src="https://deadline.com/wp-content/uploads/2022/05/Futurama-Bender.jpg"/>
+</a>
+<br>
+
 Test coverage by codecov(clickable):
 <a href="https://codecov.io/gh/realtroffy/
 telegrambot-update-handler" >
