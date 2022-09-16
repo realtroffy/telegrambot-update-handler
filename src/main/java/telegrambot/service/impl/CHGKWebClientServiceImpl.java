@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import telegrambot.service.WebClientService;
 
+import javax.annotation.PostConstruct;
 import java.time.Duration;
 
 @Service
@@ -27,6 +28,7 @@ public class CHGKWebClientServiceImpl implements WebClientService {
   }
 
   @Override
+  @PostConstruct
   public ResponseEntity<String> getResponseEntity() {
     return webClient
         .get()
