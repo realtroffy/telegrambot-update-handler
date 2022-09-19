@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import telegrambot.handlers.MessageExecutor;
 import telegrambot.model.UserWriteBot;
-import telegrambot.service.TelegramFacade;
 import telegrambot.service.WebHookService;
 
 @RestController
@@ -15,12 +14,12 @@ import telegrambot.service.WebHookService;
 public class WebhookController {
 
   private final WebHookService webHookService;
-  private final TelegramFacade telegramFacade;
+  private final MessageExecutor messageExecutor;
 
   @PostMapping("/update")
   public void onUpdateReceived(@RequestBody Update update) {
     UserWriteBot userWriteBot = webHookService.getUserFromUpdate(update);
     webHookService.saveToDataBase(userWriteBot);
-    telegramFacade.handleUpdate(update);
+    messageExecutor.executeMessage(update.getMessage());
   }
 }
