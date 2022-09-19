@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import telegrambot.handlers.MessageHandler;
+import telegrambot.handlers.impl.MessageExecutorImpl;
 
 @Service
 @AllArgsConstructor
 public class TelegramFacade {
 
-  private final MessageHandler messageHandler;
+  private final MessageExecutorImpl messageExecutorImpl;
 
-  public Message handleUpdate(Update update) {
+  public void handleUpdate(Update update) {
     Message message = update.getMessage();
-    return messageHandler.process(message);
+    messageExecutorImpl.executeMessage(message);
   }
 }

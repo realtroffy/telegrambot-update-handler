@@ -18,9 +18,9 @@ public class WebhookController {
   private final TelegramFacade telegramFacade;
 
   @PostMapping("/update")
-  public Message onUpdateReceived(@RequestBody Update update) {
+  public void onUpdateReceived(@RequestBody Update update) {
     UserWriteBot userWriteBot = webHookService.getUserFromUpdate(update);
     webHookService.saveToDataBase(userWriteBot);
-    return telegramFacade.handleUpdate(update);
+    telegramFacade.handleUpdate(update);
   }
 }
