@@ -1,4 +1,4 @@
-package telegrambot.handlers;
+package telegrambot.executor;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 

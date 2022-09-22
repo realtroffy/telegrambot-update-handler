@@ -1,13 +1,13 @@
-package telegrambot.handlers.utils;
+package telegrambot.executor.utils;
 
+import lombok.experimental.UtilityClass;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 
-public final class ExecutorSendPhoto {
-
-  private ExecutorSendPhoto() {}
+@UtilityClass
+public class ExecutorSendPhoto {
 
   public static void executePhoto(Long chatId, String pictureUrl, TelegramBot telegramBot)
       throws TelegramApiException {

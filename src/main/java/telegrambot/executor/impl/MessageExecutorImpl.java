@@ -1,18 +1,20 @@
-package telegrambot.handlers.impl;
+package telegrambot.executor.impl;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import telegrambot.component.TelegramBot;
-import telegrambot.handlers.MessageExecutor;
-import telegrambot.handlers.utils.ExecutorCHGKMessageUtil;
-import telegrambot.handlers.utils.ExecutorDefaultMessageUtil;
-import telegrambot.handlers.utils.ExecutorKfcMessageUtil;
-import telegrambot.handlers.utils.ExecutorMinskMogilevMessageUtil;
-import telegrambot.handlers.utils.ExecutorMogilevMinskMessageUtil;
-import telegrambot.handlers.utils.ExecutorStartMessageUtil;
+import telegrambot.executor.MessageExecutor;
+import telegrambot.executor.utils.ExecutorCHGKMessageUtil;
+import telegrambot.executor.utils.ExecutorDefaultMessageUtil;
+import telegrambot.executor.utils.ExecutorKfcMessageUtil;
+import telegrambot.executor.utils.ExecutorMinskMogilevMessageUtil;
+import telegrambot.executor.utils.ExecutorMogilevMinskMessageUtil;
+import telegrambot.executor.utils.ExecutorStartMessageUtil;
 import telegrambot.keybord.ReplyKeyboardMaker;
 import telegrambot.parser.htmlimpl.GoCarHtmlParser;
 import telegrambot.parser.htmlimpl.KFCHtmlParser;
@@ -20,6 +22,7 @@ import telegrambot.parser.xmlimpl.CHGKXmlParser;
 
 @Service
 @AllArgsConstructor
+@FieldDefaults(makeFinal=true, level= AccessLevel.PRIVATE)
 @Slf4j
 public class MessageExecutorImpl implements MessageExecutor {
 
@@ -30,11 +33,11 @@ public class MessageExecutorImpl implements MessageExecutor {
   public static final String QUESTION_BUTTON_MESSAGE = "❓Гробы_чгк⚰️. Нужно подождать 3-5 секунд";
   public static final String KFC_BUTTON_MESSAGE = "KFC купоны";
 
-  private final ReplyKeyboardMaker replyKeyboardMaker;
-  private final GoCarHtmlParser goCarHtmlParser;
-  private final CHGKXmlParser chgkXmlParser;
-  private final KFCHtmlParser kfcHtmlParser;
-  private final TelegramBot telegramBot;
+  ReplyKeyboardMaker replyKeyboardMaker;
+  GoCarHtmlParser goCarHtmlParser;
+  CHGKXmlParser chgkXmlParser;
+  KFCHtmlParser kfcHtmlParser;
+  TelegramBot telegramBot;
 
   @Override
   public void executeMessage(Message message) {

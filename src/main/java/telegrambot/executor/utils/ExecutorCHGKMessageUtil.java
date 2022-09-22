@@ -1,6 +1,8 @@
-package telegrambot.handlers.utils;
+package telegrambot.executor.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.Value;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -11,12 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public final class ExecutorCHGKMessageUtil {
+@UtilityClass
+public class ExecutorCHGKMessageUtil {
 
   public static final String KEY_QUESTION_COMPLETE = "completeQuestion";
   public static final String KEY_PICTURE_QUESTION_URLS = "pictureUrls";
-
-  private ExecutorCHGKMessageUtil() {}
 
   @SuppressWarnings("unchecked")
   public static void executeCHGKMessage(

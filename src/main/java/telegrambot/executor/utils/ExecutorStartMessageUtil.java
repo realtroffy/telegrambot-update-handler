@@ -1,5 +1,6 @@
-package telegrambot.handlers.utils;
+package telegrambot.executor.utils;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -7,9 +8,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 
 @Slf4j
-public final class ExecutorStartMessageUtil {
-
-  private ExecutorStartMessageUtil() {}
+@UtilityClass
+public class ExecutorStartMessageUtil {
 
   public static void executeStartMessage(
       Message message, SendMessage sendMessage, TelegramBot telegramBot) {

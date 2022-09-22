@@ -1,7 +1,9 @@
 package telegrambot.component;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -11,17 +13,18 @@ import org.telegram.telegrambots.starter.SpringWebhookBot;
 
 @Getter
 @Setter
+@FieldDefaults(level= AccessLevel.PRIVATE)
 @Component
 public class TelegramBot extends SpringWebhookBot {
 
   @Value("${custom.telegrambot.webHookPath}")
-  private String botPath;
+  String botPath;
 
   @Value("${custom.telegrambot.userName}")
-  private String botUsername;
+  String botUsername;
 
   @Value("${TELEGRAMBOT_TOKEN}")
-  private String botToken;
+  String botToken;
 
   public TelegramBot(SetWebhook setWebhook) {
     super(setWebhook);

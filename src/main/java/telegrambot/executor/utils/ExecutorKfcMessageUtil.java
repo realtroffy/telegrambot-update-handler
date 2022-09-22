@@ -1,5 +1,6 @@
-package telegrambot.handlers.utils;
+package telegrambot.executor.utils;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
@@ -9,11 +10,10 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-public final class ExecutorKfcMessageUtil {
+@UtilityClass
+public class ExecutorKfcMessageUtil {
 
   public static final String KFC_URL_PROMO = "https://www.kfc.by/promo/182";
-
-  private ExecutorKfcMessageUtil() {}
 
   public static void executeKfcMessage(
       Long chatId, KFCHtmlParser kfcHtmlParser, TelegramBot telegramBot) {
