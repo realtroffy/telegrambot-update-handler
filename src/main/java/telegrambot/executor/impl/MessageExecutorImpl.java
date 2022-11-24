@@ -3,7 +3,6 @@ package telegrambot.executor.impl;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -23,7 +22,6 @@ import telegrambot.parser.xmlimpl.CHGKXmlParser;
 @Service
 @AllArgsConstructor
 @FieldDefaults(makeFinal=true, level= AccessLevel.PRIVATE)
-@Slf4j
 public class MessageExecutorImpl implements MessageExecutor {
 
   public static final String MINSK_MOGILEV_BUTTON_MESSAGE =
