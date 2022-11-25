@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 @Component
-@UtilityClass
 public class SSLFix {
 
     @PostConstruct
