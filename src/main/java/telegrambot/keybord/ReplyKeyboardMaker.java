@@ -16,6 +16,7 @@ public class ReplyKeyboardMaker {
           "\uD83D\uDE98Попутка_Могилев_Минск\uD83D\uDE98";
   public static final String QUESTION_BUTTON_MESSAGE = "❓Гробы_чгк⚰️. Нужно подождать 3-5 секунд";
   public static final String KFC_BUTTON_MESSAGE = "KFC купоны";
+  public static final String BURGER_KING_BUTTON_MESSAGE = "Burger-King купоны";
 
   public ReplyKeyboardMarkup getMainMenuKeyboard() {
     KeyboardRow row1 = new KeyboardRow();
@@ -26,9 +27,13 @@ public class ReplyKeyboardMaker {
     row2.add(QUESTION_BUTTON_MESSAGE);
     row2.add(KFC_BUTTON_MESSAGE);
 
+    KeyboardRow row3 = new KeyboardRow();
+    row3.add(BURGER_KING_BUTTON_MESSAGE);
+
     List<KeyboardRow> keyboard = new ArrayList<>();
     keyboard.add(row1);
     keyboard.add(row2);
+    keyboard.add(row3);
 
     ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
     replyKeyboardMarkup.setKeyboard(keyboard);

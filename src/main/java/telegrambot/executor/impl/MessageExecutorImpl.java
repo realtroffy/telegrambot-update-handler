@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import telegrambot.component.TelegramBot;
 import telegrambot.executor.MessageExecutor;
+import telegrambot.executor.utils.ExecutorBurgerMessageUtil;
 import telegrambot.executor.utils.ExecutorCHGKMessageUtil;
 import telegrambot.executor.utils.ExecutorDefaultMessageUtil;
 import telegrambot.executor.utils.ExecutorKfcMessageUtil;
@@ -15,13 +16,14 @@ import telegrambot.executor.utils.ExecutorMinskMogilevMessageUtil;
 import telegrambot.executor.utils.ExecutorMogilevMinskMessageUtil;
 import telegrambot.executor.utils.ExecutorStartMessageUtil;
 import telegrambot.keybord.ReplyKeyboardMaker;
+import telegrambot.parser.htmlimpl.BurgerKingHtmlParser;
 import telegrambot.parser.htmlimpl.GoCarHtmlParser;
 import telegrambot.parser.htmlimpl.KFCHtmlParser;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
 
 @Service
 @AllArgsConstructor
-@FieldDefaults(makeFinal=true, level= AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MessageExecutorImpl implements MessageExecutor {
 
   public static final String MINSK_MOGILEV_BUTTON_MESSAGE =
@@ -30,11 +32,13 @@ public class MessageExecutorImpl implements MessageExecutor {
       "\uD83D\uDE98Попутка_Могилев_Минск\uD83D\uDE98";
   public static final String QUESTION_BUTTON_MESSAGE = "❓Гробы_чгк⚰️. Нужно подождать 3-5 секунд";
   public static final String KFC_BUTTON_MESSAGE = "KFC купоны";
+  public static final String BURGER_KING_BUTTON_MESSAGE = "Burger-King купоны";
 
   ReplyKeyboardMaker replyKeyboardMaker;
   GoCarHtmlParser goCarHtmlParser;
   CHGKXmlParser chgkXmlParser;
   KFCHtmlParser kfcHtmlParser;
+  BurgerKingHtmlParser burgerKingHtmlParser;
   TelegramBot telegramBot;
 
   @Override
@@ -66,6 +70,10 @@ public class MessageExecutorImpl implements MessageExecutor {
         break;
       case KFC_BUTTON_MESSAGE:
         ExecutorKfcMessageUtil.executeKfcMessage(chatId, kfcHtmlParser, telegramBot);
+        break;
+      case BURGER_KING_BUTTON_MESSAGE:
+        ExecutorBurgerMessageUtil.executeBurgerMessage(
+            sendMessage, chatId, burgerKingHtmlParser, telegramBot);
         break;
       default:
         ExecutorDefaultMessageUtil.executeDefaultMessage(sendMessage, telegramBot);
