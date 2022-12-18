@@ -7,12 +7,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
+import telegrambot.sсheduled.Scheduler;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static telegrambot.sсheduled.Scheduler.chgkQueue;
 
 @Slf4j
 @UtilityClass
@@ -28,7 +27,7 @@ public class ExecutorCHGKMessageUtil {
 
     Map<String, Object> questionMap = new HashMap<>();
 
-    if (chgkQueue.isEmpty()) {
+    if (Scheduler.chgkQueue.isEmpty()) {
       try {
         questionMap = chgkXmlParser.processQuestionButton();
       } catch (JsonProcessingException e) {
@@ -36,7 +35,7 @@ public class ExecutorCHGKMessageUtil {
       }
 
     } else {
-      questionMap = chgkQueue.poll();
+      questionMap = Scheduler.chgkQueue.poll();
     }
 
     String messageFromXml = (String) questionMap.get(KEY_QUESTION_COMPLETE);
