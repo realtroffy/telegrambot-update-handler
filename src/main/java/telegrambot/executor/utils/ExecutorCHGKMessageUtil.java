@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
-import telegrambot.sсheduled.Scheduler;
+import telegrambot.timer.Scheduler;
 
 import java.util.HashMap;
 import java.util.List;
