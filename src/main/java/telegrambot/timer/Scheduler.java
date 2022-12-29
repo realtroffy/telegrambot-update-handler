@@ -39,10 +39,12 @@ public class Scheduler {
     if (chgkQueue.size() < 30) {
       chgkQueue.add(chgkXmlParser.processQuestionButton());
     }
+
     if (!queueKFCPictures.isEmpty()) {
       queueKFCPictures.clear();
     }
     queueKFCPictures.add(kfcHtmlParser.getMessageFromDocument(kfcPromoUrl));
+
     if(!queueBurgerKing.isEmpty()){
       queueBurgerKing.clear();
     }
