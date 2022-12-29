@@ -24,7 +24,7 @@ public class ExecutorCHGKMessage {
   public static final String KEY_PICTURE_QUESTION_URLS = "pictureUrls";
   public static final String ERROR_MESSAGE_CHGK_EXECUTOR =
       "Exception during execute QUESTION_BUTTON_MESSAGE in MessageExecutorImpl";
-  private CHGKXmlParser chgkXmlParser;
+  private final CHGKXmlParser chgkXmlParser;
 
   public void execute(Long chatId, SendMessage sendMessage, TelegramBot telegramBot) {
 

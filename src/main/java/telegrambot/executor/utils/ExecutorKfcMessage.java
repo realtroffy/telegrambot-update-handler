@@ -17,8 +17,7 @@ public class ExecutorKfcMessage {
 
   @Value("${custom.telegrambot.kfc_promo_url}")
   private String kfcPromoUrl;
-
-  private KFCHtmlParser kfcHtmlParser;
+  private final KFCHtmlParser kfcHtmlParser;
 
   public void execute(Long chatId, TelegramBot telegramBot) {
     List<String> kfcPictureUrls;
