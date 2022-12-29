@@ -1,8 +1,10 @@
 package telegrambot.executor.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.Data;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
@@ -14,16 +16,17 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@UtilityClass
-public class ExecutorCHGKMessageUtil {
+@Data
+@Service
+public class ExecutorCHGKMessage {
 
   public static final String KEY_QUESTION_COMPLETE = "completeQuestion";
   public static final String KEY_PICTURE_QUESTION_URLS = "pictureUrls";
   public static final String ERROR_MESSAGE_CHGK_EXECUTOR =
       "Exception during execute QUESTION_BUTTON_MESSAGE in MessageExecutorImpl";
+  private CHGKXmlParser chgkXmlParser;
 
-  public static void executeCHGKMessage(
-      Long chatId, SendMessage sendMessage, CHGKXmlParser chgkXmlParser, TelegramBot telegramBot) {
+  public void execute(Long chatId, SendMessage sendMessage, TelegramBot telegramBot) {
 
     Map<String, Object> questionMap = new HashMap<>();
 

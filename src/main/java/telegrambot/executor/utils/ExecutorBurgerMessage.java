@@ -1,26 +1,36 @@
 package telegrambot.executor.utils;
 
-import lombok.experimental.UtilityClass;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 import telegrambot.parser.htmlimpl.BurgerKingHtmlParser;
+import telegrambot.timer.Scheduler;
 
 import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
-@UtilityClass
-public class ExecutorBurgerMessageUtil {
+@Data
+@Service
+public class ExecutorBurgerMessage {
 
-  public static final String BURGER_URL_PROMO = "https://burger-king.by/coupons/";
+  @Value("${custom.telegrambot.burger_king_promo_url}")
+  private String burgerKingPromoUrl;
 
-  public static void executeBurgerMessage(SendMessage sendMessage,
-      Long chatId, BurgerKingHtmlParser burgerKingHtmlParser, TelegramBot telegramBot) {
+  private final BurgerKingHtmlParser burgerKingHtmlParser;
+
+  public void execute(SendMessage sendMessage, Long chatId, TelegramBot telegramBot) {
     Map<String, String> burgerKingPictureUrls;
     try {
-      burgerKingPictureUrls = burgerKingHtmlParser.getMessageFromDocument(BURGER_URL_PROMO);
+      if (Scheduler.queueBurgerKing.isEmpty()) {
+        burgerKingPictureUrls = burgerKingHtmlParser.getMessageFromDocument(burgerKingPromoUrl);
+      } else {
+        burgerKingPictureUrls = Scheduler.queueBurgerKing.poll();
+      }
       for (Map.Entry<String, String> entry : burgerKingPictureUrls.entrySet()) {
         ExecutorSendPhoto.executePhoto(chatId, entry.getKey(), telegramBot);
         sendMessage.setText(entry.getValue());

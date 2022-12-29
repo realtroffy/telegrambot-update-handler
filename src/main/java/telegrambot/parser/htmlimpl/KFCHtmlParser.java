@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public class KFCHtmlParser {
 
   public static final String COUPON_NAME_QUERY = "li.coupon-list__item>img[src]";
-
   private final DocumentHtmlParserService documentHtmlParserService;
+
 
   public List<String> getMessageFromDocument(String urlForParse) throws IOException {
     Document document = documentHtmlParserService.getDocumentFromUrl(urlForParse);

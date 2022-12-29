@@ -8,18 +8,15 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import telegrambot.component.TelegramBot;
 import telegrambot.executor.MessageExecutor;
-import telegrambot.executor.utils.ExecutorBurgerMessageUtil;
-import telegrambot.executor.utils.ExecutorCHGKMessageUtil;
+import telegrambot.executor.utils.ExecutorBurgerMessage;
+import telegrambot.executor.utils.ExecutorCHGKMessage;
 import telegrambot.executor.utils.ExecutorDefaultMessageUtil;
-import telegrambot.executor.utils.ExecutorKfcMessageUtil;
+import telegrambot.executor.utils.ExecutorKfcMessage;
 import telegrambot.executor.utils.ExecutorMinskMogilevMessageUtil;
 import telegrambot.executor.utils.ExecutorMogilevMinskMessageUtil;
 import telegrambot.executor.utils.ExecutorStartMessageUtil;
 import telegrambot.keybord.ReplyKeyboardMaker;
-import telegrambot.parser.htmlimpl.BurgerKingHtmlParser;
 import telegrambot.parser.htmlimpl.GoCarHtmlParser;
-import telegrambot.parser.htmlimpl.KFCHtmlParser;
-import telegrambot.parser.xmlimpl.CHGKXmlParser;
 
 @Service
 @AllArgsConstructor
@@ -36,9 +33,9 @@ public class MessageExecutorImpl implements MessageExecutor {
 
   ReplyKeyboardMaker replyKeyboardMaker;
   GoCarHtmlParser goCarHtmlParser;
-  CHGKXmlParser chgkXmlParser;
-  KFCHtmlParser kfcHtmlParser;
-  BurgerKingHtmlParser burgerKingHtmlParser;
+  ExecutorCHGKMessage executorCHGKMessage;
+  ExecutorKfcMessage executorKfcMessage;
+  ExecutorBurgerMessage executorBurgerMessage;
   TelegramBot telegramBot;
 
   @Override
@@ -66,14 +63,13 @@ public class MessageExecutorImpl implements MessageExecutor {
             sendMessage, goCarHtmlParser, telegramBot);
         break;
       case QUESTION_BUTTON_MESSAGE:
-        ExecutorCHGKMessageUtil.executeCHGKMessage(chatId, sendMessage, chgkXmlParser, telegramBot);
+        executorCHGKMessage.execute(chatId, sendMessage, telegramBot);
         break;
       case KFC_BUTTON_MESSAGE:
-        ExecutorKfcMessageUtil.executeKfcMessage(chatId, kfcHtmlParser, telegramBot);
+        executorKfcMessage.execute(chatId, telegramBot);
         break;
       case BURGER_KING_BUTTON_MESSAGE:
-        ExecutorBurgerMessageUtil.executeBurgerMessage(
-            sendMessage, chatId, burgerKingHtmlParser, telegramBot);
+        executorBurgerMessage.execute(sendMessage, chatId, telegramBot);
         break;
       default:
         ExecutorDefaultMessageUtil.executeDefaultMessage(sendMessage, telegramBot);
