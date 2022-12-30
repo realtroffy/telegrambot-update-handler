@@ -29,7 +29,7 @@ public class ExecutorBurgerMessage {
       if (Scheduler.queueBurgerKing.isEmpty()) {
         burgerKingPictureUrls = burgerKingHtmlParser.getMessageFromDocument(burgerKingPromoUrl);
       } else {
-        burgerKingPictureUrls = Scheduler.queueBurgerKing.poll();
+        burgerKingPictureUrls = Scheduler.queueBurgerKing.peek();
       }
       for (Map.Entry<String, String> entry : burgerKingPictureUrls.entrySet()) {
         ExecutorSendPhoto.executePhoto(chatId, entry.getKey(), telegramBot);

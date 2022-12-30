@@ -25,7 +25,7 @@ public class ExecutorKfcMessage {
       if (Scheduler.queueKFCPictures.isEmpty()) {
         kfcPictureUrls = kfcHtmlParser.getMessageFromDocument(kfcPromoUrl);
       } else {
-        kfcPictureUrls = Scheduler.queueKFCPictures.poll();
+        kfcPictureUrls = Scheduler.queueKFCPictures.peek();
       }
       for (String pictureUrl : kfcPictureUrls) {
         ExecutorSendPhoto.executePhoto(chatId, pictureUrl, telegramBot);
