@@ -1,20 +1,15 @@
 package telegrambot.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import telegrambot.service.WebClientService;
 
-import javax.annotation.PostConstruct;
 import java.time.Duration;
 
 @Service
-public class CHGKWebClientServiceImpl implements WebClientService {
-
-  @Value("${custom.telegrambot.questionUrl}")
-  private String questionUrl;
+public class CHGKWebClientServiceImpl implements WebClientService<String> {
 
   private final WebClient webClient;
 
@@ -28,11 +23,10 @@ public class CHGKWebClientServiceImpl implements WebClientService {
   }
 
   @Override
-  @PostConstruct
-  public ResponseEntity<String> getResponseEntity() {
+  public ResponseEntity<String> getResponseEntity(String url) {
     return webClient
         .get()
-        .uri(questionUrl)
+        .uri(url)
         .retrieve()
         .toEntity(String.class)
         .timeout(Duration.ofMinutes(1))

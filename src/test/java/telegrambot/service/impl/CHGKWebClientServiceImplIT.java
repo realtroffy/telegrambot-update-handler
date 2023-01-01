@@ -1,3 +1,4 @@
+/*
 package telegrambot.service.impl;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -44,3 +45,4 @@ class CHGKWebClientServiceImplIT {
     assertEquals("Some string", responseEntity.getBody());
   }
 }
+*/

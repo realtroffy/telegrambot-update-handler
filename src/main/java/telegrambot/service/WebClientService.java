@@ -2,8 +2,7 @@ package telegrambot.service;
 
 import org.springframework.http.ResponseEntity;
 
-public interface WebClientService {
+public interface WebClientService <T>{
 
-  ResponseEntity<String> getResponseEntity();
-
+  ResponseEntity<T> getResponseEntity(String url);
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Service;
@@ -21,20 +23,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-@AllArgsConstructor
 @Slf4j
+@Data
 public class CHGKXmlParser implements XmlParser {
+
+  @Value("${custom.telegrambot.questionUrl}")
+  private String questionUrl;
 
   public static final String ERROR_XML_MESSAGE = "Error parsing xml";
   public static final String PICTURE_PATTERN = "\\d+\\.(jpg|png|gif|bmp)";
   public static final String PICTURE_URL = "https://db.chgk.info/images/db/";
 
-  private final WebClientService webClientService;
+  private final WebClientService<String> webClientService;
   private final MappingJackson2XmlHttpMessageConverter xmlConverter;
 
   public Map<String, Object> processQuestionButton() throws JsonProcessingException {
     Map<String, Object> questionInfo = new HashMap<>();
-    ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity();
+    ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity(questionUrl);
 
     if (stringQuestionXml != null) {
 
