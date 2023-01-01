@@ -10,8 +10,6 @@ import telegrambot.parser.htmlimpl.KFCHtmlParser;
 import telegrambot.parser.json.WeatherJSONParser;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayDeque;
@@ -48,7 +46,7 @@ public class Scheduler {
   @Value("${custom.telegrambot.yandex_weather_mogilev}")
   private String weatherUrlMogilev;
 
-  @Scheduled(cron = "@daily")
+  @Scheduled(cron = "0 0 */6 * * ?")
   public void addCHGKQuestionToCashQueue() {
     if (chgkQueue.size() < 30) {
       try {
@@ -60,7 +58,7 @@ public class Scheduler {
     }
   }
 
-  @Scheduled(cron = "@daily")
+  @Scheduled(cron = "0 0 8 * * ?")
   public void addKfcPicturesToQueue() {
     if (!queueKFCPictures.isEmpty()) {
       queueKFCPictures.clear();
@@ -73,7 +71,7 @@ public class Scheduler {
     }
   }
 
-  @Scheduled(cron = "@daily")
+  @Scheduled(cron = "0 0 8 * * ?")
   public void addBurgerMessageToQueue() {
     if (!queueBurgerKing.isEmpty()) {
       queueBurgerKing.clear();
