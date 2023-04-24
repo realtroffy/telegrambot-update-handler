@@ -14,15 +14,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class KFCHtmlParser {
 
-  public static final String COUPON_NAME_QUERY = "li.coupon-list__item>img[src]";
+  public static final String COUPON_NAME_QUERY = "div>img[alt=\"Скидки и акции в KFC!\"]";
   private final DocumentHtmlParserService documentHtmlParserService;
-
 
   public List<String> getMessageFromDocument(String urlForParse) throws IOException {
     Document document = documentHtmlParserService.getDocumentFromUrl(urlForParse);
 
     Elements coupon =
         documentHtmlParserService.getElementsFromDocument(document, COUPON_NAME_QUERY);
-    return coupon.stream().map(e -> e.attr("src")).collect(Collectors.toList());
+    return coupon.stream().map(e -> e.attr("data-original")).collect(Collectors.toList());
   }
 }
