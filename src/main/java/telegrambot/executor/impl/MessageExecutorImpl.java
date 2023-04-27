@@ -15,6 +15,7 @@ import telegrambot.executor.utils.ExecutorKfcMessage;
 import telegrambot.executor.utils.ExecutorMinskMogilevMessageUtil;
 import telegrambot.executor.utils.ExecutorMogilevMinskMessageUtil;
 import telegrambot.executor.utils.ExecutorStartMessageUtil;
+import telegrambot.executor.utils.ExecutorTextButtonNull;
 import telegrambot.executor.utils.ExecutorWeatherMinskMessage;
 import telegrambot.executor.utils.ExecutorWeatherMogilevMessage;
 import telegrambot.keybord.ReplyKeyboardMaker;
@@ -56,35 +57,39 @@ public class MessageExecutorImpl implements MessageExecutor {
     sendMessage.enableHtml(true);
     sendMessage.setReplyMarkup(replyKeyboardMaker.getMainMenuKeyboard());
 
-    switch (inputMessage) {
-      case "/start":
-        ExecutorStartMessageUtil.executeStartMessage(message, sendMessage, telegramBot);
-        break;
-      case MOGILEV_MINSK_BUTTON_MESSAGE:
-        ExecutorMogilevMinskMessageUtil.executeMogilevMinskMessage(
-            sendMessage, goCarHtmlParser, telegramBot);
-        break;
-      case MINSK_MOGILEV_BUTTON_MESSAGE:
-        ExecutorMinskMogilevMessageUtil.executeMinskMogilevMessage(
-            sendMessage, goCarHtmlParser, telegramBot);
-        break;
-      case QUESTION_BUTTON_MESSAGE:
-        executorCHGKMessage.execute(chatId, sendMessage, telegramBot);
-        break;
-      case KFC_BUTTON_MESSAGE:
-        executorKfcMessage.execute(chatId, telegramBot);
-        break;
-      case BURGER_KING_BUTTON_MESSAGE:
-        executorBurgerMessage.execute(sendMessage, chatId, telegramBot);
-        break;
-      case WEATHER_MINSK_BUTTON_MESSAGE:
-        executorWeatherMinskMessage.execute(sendMessage, telegramBot);
-        break;
-      case WEATHER_MOGILEV_BUTTON_MESSAGE:
-        executorWeatherMogilevMessage.execute(sendMessage, telegramBot);
-        break;
-      default:
-        ExecutorDefaultMessageUtil.executeDefaultMessage(sendMessage, telegramBot);
+    if (inputMessage == null) {
+      ExecutorTextButtonNull.executeTextButtonNull(sendMessage, telegramBot);
+    } else {
+      switch (inputMessage) {
+        case "/start":
+          ExecutorStartMessageUtil.executeStartMessage(message, sendMessage, telegramBot);
+          break;
+        case MOGILEV_MINSK_BUTTON_MESSAGE:
+          ExecutorMogilevMinskMessageUtil.executeMogilevMinskMessage(
+              sendMessage, goCarHtmlParser, telegramBot);
+          break;
+        case MINSK_MOGILEV_BUTTON_MESSAGE:
+          ExecutorMinskMogilevMessageUtil.executeMinskMogilevMessage(
+              sendMessage, goCarHtmlParser, telegramBot);
+          break;
+        case QUESTION_BUTTON_MESSAGE:
+          executorCHGKMessage.execute(chatId, sendMessage, telegramBot);
+          break;
+        case KFC_BUTTON_MESSAGE:
+          executorKfcMessage.execute(chatId, telegramBot);
+          break;
+        case BURGER_KING_BUTTON_MESSAGE:
+          executorBurgerMessage.execute(sendMessage, chatId, telegramBot);
+          break;
+        case WEATHER_MINSK_BUTTON_MESSAGE:
+          executorWeatherMinskMessage.execute(sendMessage, telegramBot);
+          break;
+        case WEATHER_MOGILEV_BUTTON_MESSAGE:
+          executorWeatherMogilevMessage.execute(sendMessage, telegramBot);
+          break;
+        default:
+          ExecutorDefaultMessageUtil.executeDefaultMessage(sendMessage, telegramBot);
+      }
     }
   }
 }
