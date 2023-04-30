@@ -2,9 +2,7 @@ package telegrambot.handler.impl;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -17,15 +15,24 @@ import telegrambot.parser.json.WeatherJSONParser;
 @Data
 public class WeatherGPSMessageHandler implements MessageHandler {
 
+  private final WeatherJSONParser weatherJSONParser;
+
+  @Override
   public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
-    Double latitude = message.getLocation().getLatitude();
-    Double longitude = message.getLocation().getLongitude();
+
     sendMessage.setChatId(message.getChatId());
-    sendMessage.setText("Latitude: " + latitude + ", longitude: " + longitude);
+
+    String weatherURL =
+        "https://api.weather.yandex.ru/v2/informers?lat="
+            + message.getLocation().getLatitude()
+            + "&lon="
+            + message.getLocation().getLongitude();
+
+    sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL));
     try {
       telegramBot.execute(sendMessage);
     } catch (TelegramApiException e) {
-      log.error("Exception during execute weather minsk button");
+      log.error("Exception during execute WEATHER_GPS_MESSAGE_BUTTON", e);
     }
   }
 }

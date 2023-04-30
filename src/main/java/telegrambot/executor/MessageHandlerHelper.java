@@ -11,9 +11,8 @@ import telegrambot.handler.impl.GoCarMessageHandler;
 import telegrambot.handler.impl.KFCMessageHandler;
 import telegrambot.handler.impl.MinskMogilevGocarMessageHandler;
 import telegrambot.handler.impl.MogilevMinskGoCarMessageHandler;
-import telegrambot.handler.impl.NullMessageHandler;
-import telegrambot.handler.impl.StartMessageHandler;
 import telegrambot.handler.impl.WeatherGPSMessageHandler;
+import telegrambot.handler.impl.StartMessageHandler;
 import telegrambot.handler.impl.WeatherMessageHandler;
 import telegrambot.handler.impl.WeatherMinskMessageHandler;
 import telegrambot.handler.impl.WeatherMogilevMessageHandler;
@@ -28,16 +27,16 @@ public class MessageHandlerHelper {
 
   public static final String MINSK_MOGILEV_BUTTON_MESSAGE = "minsk_mogilev";
   public static final String MOGILEV_MINSK_BUTTON_MESSAGE = "mogilev_minsk";
-  public static final String START_MESSAGE = "/start";
+  public static final String START_BUTTON_MESSAGE = "/start";
   public static final String QUESTION_BUTTON_MESSAGE = "Вопросы Что,где когда?";
   public static final String KFC_BUTTON_MESSAGE = "kfc";
   public static final String BURGER_KING_BUTTON_MESSAGE = "burger_king";
   public static final String WEATHER_MINSK_BUTTON_MESSAGE = "minsk_weather";
   public static final String WEATHER_MOGILEV_BUTTON_MESSAGE = "mogilev_weather";
-  public static final String FELLOW_GOCAR_MESSAGE = "Найти попутку";
+  public static final String FELLOW_GOCAR_BUTTON_MESSAGE = "Найти попутку";
   public static final String COUPONS_BUTTON_MESSAGE = "Купоны, акции, скидки";
   public static final String WEATHER_BUTTON_MESSAGE = "Погода";
-  public static final String WEATHER_CURRENT_GPS = "Погода по текущим GPS координатам";
+  public static final String WEATHER_CURRENT_GPS_WEATHER_MESSAGE = "Погода по текущим GPS координатам";
 
   private final MogilevMinskGoCarMessageHandler mogilevMinskGoCarMessageHandler;
   private final MinskMogilevGocarMessageHandler minskMogilevGocarMessageHandler;
@@ -48,20 +47,19 @@ public class MessageHandlerHelper {
   private final BurgerMessageHandler burgerMessageHandler;
   private final WeatherMinskMessageHandler weatherMinskMessageHandler;
   private final WeatherMogilevMessageHandler weatherMogilevMessageHandler;
-  private final NullMessageHandler nullMessageHandler;
+  private final WeatherGPSMessageHandler weatherGPSMessageHandler;
   private final CouponsMessageHandler couponsMessageHandler;
   private final WeatherMessageHandler weatherMessageHandler;
-  private final WeatherGPSMessageHandler weatherGPSMessageHandler;
   private final DefaultMessageHandler defaultMessageHandler;
 
   private final Map<String, MessageHandler> handlerMap = new HashMap<>();
 
   @PostConstruct
   private void fillHandlerMap() {
-    handlerMap.put(START_MESSAGE, startMessageHandler);
+    handlerMap.put(START_BUTTON_MESSAGE, startMessageHandler);
     handlerMap.put(MOGILEV_MINSK_BUTTON_MESSAGE, mogilevMinskGoCarMessageHandler);
     handlerMap.put(MINSK_MOGILEV_BUTTON_MESSAGE, minskMogilevGocarMessageHandler);
-    handlerMap.put(FELLOW_GOCAR_MESSAGE, goCarMessageHandler);
+    handlerMap.put(FELLOW_GOCAR_BUTTON_MESSAGE, goCarMessageHandler);
     handlerMap.put(QUESTION_BUTTON_MESSAGE, chgkMessageHandler);
     handlerMap.put(KFC_BUTTON_MESSAGE, kfcMessageHandler);
     handlerMap.put(BURGER_KING_BUTTON_MESSAGE, burgerMessageHandler);
@@ -69,7 +67,6 @@ public class MessageHandlerHelper {
     handlerMap.put(WEATHER_MOGILEV_BUTTON_MESSAGE, weatherMogilevMessageHandler);
     handlerMap.put(COUPONS_BUTTON_MESSAGE, couponsMessageHandler);
     handlerMap.put(WEATHER_BUTTON_MESSAGE, weatherMessageHandler);
-    handlerMap.put(WEATHER_CURRENT_GPS, weatherGPSMessageHandler);
-    handlerMap.put(null, nullMessageHandler);
+    handlerMap.put(null, weatherGPSMessageHandler);
   }
 }

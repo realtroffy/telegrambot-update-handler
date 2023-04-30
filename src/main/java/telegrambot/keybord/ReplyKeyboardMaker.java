@@ -33,15 +33,13 @@ public class ReplyKeyboardMaker {
     KeyboardButton keyboardCurrentGPSWeather = new KeyboardButton(WEATHER_CURRENT_GPS);
     keyboardCurrentGPSWeather.setRequestLocation(true);
     keyboardCurrentGPSWeather.setText(WEATHER_CURRENT_GPS);
-   // KeyboardRow row5 = new KeyboardRow();
-    //row5.add(keyboardCurrentGPSWeather);
+    row4.add(keyboardCurrentGPSWeather);
 
     List<KeyboardRow> keyboard = new ArrayList<>();
     keyboard.add(row1);
     keyboard.add(row2);
     keyboard.add(row3);
     keyboard.add(row4);
-   // keyboard.add(row5);
 
     ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
     replyKeyboardMarkup.setKeyboard(keyboard);
