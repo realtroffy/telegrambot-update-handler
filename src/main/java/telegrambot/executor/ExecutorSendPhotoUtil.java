@@ -1,4 +1,4 @@
-package telegrambot.executor.utils;
+package telegrambot.executor;
 
 import lombok.experimental.UtilityClass;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
 
 @UtilityClass
-public class ExecutorSendPhoto {
+public class ExecutorSendPhotoUtil {
 
   public static void executePhoto(Long chatId, String pictureUrl, TelegramBot telegramBot)
       throws TelegramApiException {
