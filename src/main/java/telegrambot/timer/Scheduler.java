@@ -84,7 +84,7 @@ public class Scheduler {
     }
   }
 
-  @Scheduled(cron = "0 0 */2 * * ?")
+  @Scheduled(cron = "0 0 */3 * * ?")
   public void addWeatherMinskToQueue() {
     if (!queueWeatherMinsk.isEmpty()) {
       queueWeatherMinsk.clear();
@@ -93,7 +93,7 @@ public class Scheduler {
     log.info("Add weather minsk info {}", LocalTime.now().format(timeFormat));
   }
 
-  @Scheduled(cron = "0 0 */2 * * ?")
+  @Scheduled(cron = "0 0 */3 * * ?")
   public void addWeatherMogilevToQueue() {
     if (!queueWeatherMogilev.isEmpty()) {
       queueWeatherMogilev.clear();

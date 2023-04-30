@@ -1,13 +1,15 @@
-package telegrambot.executor.utils;
+package telegrambot.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
+import telegrambot.executor.ExecutorSendPhotoUtil;
+import telegrambot.handler.MessageHandler;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
 import telegrambot.timer.Scheduler;
 
@@ -18,15 +20,15 @@ import java.util.Map;
 @Slf4j
 @Data
 @Service
-public class ExecutorCHGKMessage {
+public class CHGKMessageHandler implements MessageHandler {
 
   public static final String KEY_QUESTION_COMPLETE = "completeQuestion";
   public static final String KEY_PICTURE_QUESTION_URLS = "pictureUrls";
   public static final String ERROR_MESSAGE_CHGK_EXECUTOR =
-      "Exception during execute QUESTION_BUTTON_MESSAGE in MessageExecutorImpl";
+      "Exception during execute QUESTION_BUTTON_MESSAGE";
   private final CHGKXmlParser chgkXmlParser;
 
-  public void execute(Long chatId, SendMessage sendMessage, TelegramBot telegramBot) {
+  public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
 
     Map<String, Object> questionMap = new HashMap<>();
 
@@ -48,7 +50,7 @@ public class ExecutorCHGKMessage {
     try {
       telegramBot.execute(sendMessage);
       for (String pictureUrl : chgkPictureUrls) {
-        ExecutorSendPhoto.executePhoto(chatId, pictureUrl, telegramBot);
+        ExecutorSendPhotoUtil.executePhoto(message.getChatId(), pictureUrl, telegramBot);
       }
     } catch (TelegramApiException e) {
       log.error(ERROR_MESSAGE_CHGK_EXECUTOR, e);

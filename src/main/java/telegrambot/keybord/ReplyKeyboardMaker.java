@@ -2,6 +2,7 @@ package telegrambot.keybord;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -10,37 +11,37 @@ import java.util.List;
 @Component
 public class ReplyKeyboardMaker {
 
-  public static final String MINSK_MOGILEV_BUTTON_MESSAGE =
-          "\uD83D\uDE98Попутка_Минск_Могилев\uD83D\uDE98";
-  public static final String MOGILEV_MINSK_BUTTON_MESSAGE =
-          "\uD83D\uDE98Попутка_Могилев_Минск\uD83D\uDE98";
   public static final String QUESTION_BUTTON_MESSAGE = "Вопросы Что,где когда?";
-  public static final String KFC_BUTTON_MESSAGE = "KFC купоны";
-  public static final String BURGER_KING_BUTTON_MESSAGE = "Burger-King купоны";
-  public static final String WEATHER_MINSK_BUTTON_MESSAGE = "Минск погода";
-  public static final String WEATHER_MOGILEV_BUTTON_MESSAGE = "Могилев погода";
+  public static final String COUPONS_BUTTON_MESSAGE = "Купоны, акции, скидки";
+  public static final String WEATHER_BUTTON_MESSAGE = "Погода";
+  public static final String WEATHER_CURRENT_GPS = "Погода по текущим GPS координатам";
+  public static final String FELLOW_GOCAR_MESSAGE = "Найти попутку";
 
   public ReplyKeyboardMarkup getMainMenuKeyboard() {
     KeyboardRow row1 = new KeyboardRow();
-    row1.add(MINSK_MOGILEV_BUTTON_MESSAGE);
-    row1.add(MOGILEV_MINSK_BUTTON_MESSAGE);
+    row1.add(FELLOW_GOCAR_MESSAGE);
 
     KeyboardRow row2 = new KeyboardRow();
     row2.add(QUESTION_BUTTON_MESSAGE);
 
     KeyboardRow row3 = new KeyboardRow();
-    row3.add(BURGER_KING_BUTTON_MESSAGE);
-    row3.add(KFC_BUTTON_MESSAGE);
+    row3.add(COUPONS_BUTTON_MESSAGE);
 
     KeyboardRow row4 = new KeyboardRow();
-    row4.add(WEATHER_MINSK_BUTTON_MESSAGE);
-    row4.add(WEATHER_MOGILEV_BUTTON_MESSAGE);
+    row4.add(WEATHER_BUTTON_MESSAGE);
+
+    KeyboardButton keyboardCurrentGPSWeather = new KeyboardButton(WEATHER_CURRENT_GPS);
+    keyboardCurrentGPSWeather.setRequestLocation(true);
+    keyboardCurrentGPSWeather.setText(WEATHER_CURRENT_GPS);
+   // KeyboardRow row5 = new KeyboardRow();
+    //row5.add(keyboardCurrentGPSWeather);
 
     List<KeyboardRow> keyboard = new ArrayList<>();
     keyboard.add(row1);
     keyboard.add(row2);
     keyboard.add(row3);
     keyboard.add(row4);
+   // keyboard.add(row5);
 
     ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
     replyKeyboardMarkup.setKeyboard(keyboard);

@@ -1,23 +1,24 @@
-package telegrambot.executor.utils;
+package telegrambot.handler.impl;
 
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
+import telegrambot.handler.MessageHandler;
 
 @Slf4j
-@UtilityClass
-public class ExecutorStartMessageUtil {
+@Service
+public class StartMessageHandler implements MessageHandler {
 
-  public static void executeStartMessage(
-      Message message, SendMessage sendMessage, TelegramBot telegramBot) {
+  @Override
+  public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
     sendMessage.setText("Hellova, " + message.getFrom().getFirstName());
     try {
       telegramBot.execute(sendMessage);
     } catch (TelegramApiException e) {
-      log.error("Exception during execute /start in MessageExecutorImpl", e);
+      log.error("Exception during execute /start", e);
     }
   }
 }
