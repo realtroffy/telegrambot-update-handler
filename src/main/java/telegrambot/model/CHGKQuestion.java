@@ -1,7 +1,7 @@
 package telegrambot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,10 +18,10 @@ public class CHGKQuestion implements Serializable {
 
     private static final long serialVersionUID = 1683874324808432289L;
 
-    @JsonProperty("Question")
+    @JacksonXmlProperty(localName = "Question")
     private String question;
-    @JsonProperty("Answer")
+    @JacksonXmlProperty(localName = "Answer")
     private String answer;
-    @JsonProperty("Comments")
+    @JacksonXmlProperty(localName = "Comments")
     private String comment;
 }

@@ -3,6 +3,7 @@ package telegrambot.parser.xmlimpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,6 @@ public class CHGKXmlParser implements XmlParser {
   public static final String PICTURE_URL = "https://db.chgk.info/images/db/";
 
   private final WebClientService<String> webClientService;
-  private final MappingJackson2XmlHttpMessageConverter xmlConverter;
 
   public Map<String, Object> processQuestionButton() throws JsonProcessingException {
     Map<String, Object> questionInfo = new HashMap<>();
@@ -92,7 +92,7 @@ public class CHGKXmlParser implements XmlParser {
 
   private CHGKQuestion convertStringXmlToCHGKQuestion(String responseWithoutNewLine)
       throws JsonProcessingException {
-    ObjectMapper xmlMapper = xmlConverter.getObjectMapper();
+    XmlMapper xmlMapper = new XmlMapper();
     xmlMapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
     return xmlMapper.readValue(responseWithoutNewLine, CHGKQuestion.class);
   }
