@@ -1,6 +1,8 @@
 package telegrambot.executor;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import telegrambot.handler.MessageHandler;
 import telegrambot.handler.impl.BurgerMessageHandler;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 @Service
 @Data
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class MessageHandlerHelper {
 
   public static final String MINSK_MOGILEV_BUTTON_MESSAGE = "minsk_mogilev";
@@ -36,23 +39,24 @@ public class MessageHandlerHelper {
   public static final String FELLOW_GOCAR_BUTTON_MESSAGE = "Найти попутку";
   public static final String COUPONS_BUTTON_MESSAGE = "Купоны, акции, скидки";
   public static final String WEATHER_BUTTON_MESSAGE = "Погода";
-  public static final String WEATHER_CURRENT_GPS_WEATHER_MESSAGE = "Погода по текущим GPS координатам";
+  public static final String WEATHER_CURRENT_GPS_WEATHER_MESSAGE =
+      "Погода по текущим GPS координатам";
 
-  private final MogilevMinskGoCarMessageHandler mogilevMinskGoCarMessageHandler;
-  private final MinskMogilevGocarMessageHandler minskMogilevGocarMessageHandler;
-  private final StartMessageHandler startMessageHandler;
-  private final GoCarMessageHandler goCarMessageHandler;
-  private final CHGKMessageHandler chgkMessageHandler;
-  private final KFCMessageHandler kfcMessageHandler;
-  private final BurgerMessageHandler burgerMessageHandler;
-  private final WeatherMinskMessageHandler weatherMinskMessageHandler;
-  private final WeatherMogilevMessageHandler weatherMogilevMessageHandler;
-  private final WeatherGPSMessageHandler weatherGPSMessageHandler;
-  private final CouponsMessageHandler couponsMessageHandler;
-  private final WeatherMessageHandler weatherMessageHandler;
-  private final DefaultMessageHandler defaultMessageHandler;
+  MogilevMinskGoCarMessageHandler mogilevMinskGoCarMessageHandler;
+  MinskMogilevGocarMessageHandler minskMogilevGocarMessageHandler;
+  StartMessageHandler startMessageHandler;
+  GoCarMessageHandler goCarMessageHandler;
+  CHGKMessageHandler chgkMessageHandler;
+  KFCMessageHandler kfcMessageHandler;
+  BurgerMessageHandler burgerMessageHandler;
+  WeatherMinskMessageHandler weatherMinskMessageHandler;
+  WeatherMogilevMessageHandler weatherMogilevMessageHandler;
+  WeatherGPSMessageHandler weatherGPSMessageHandler;
+  CouponsMessageHandler couponsMessageHandler;
+  WeatherMessageHandler weatherMessageHandler;
+  DefaultMessageHandler defaultMessageHandler;
 
-  private final Map<String, MessageHandler> handlerMap = new HashMap<>();
+  Map<String, MessageHandler> handlerMap = new HashMap<>();
 
   @PostConstruct
   private void fillHandlerMap() {

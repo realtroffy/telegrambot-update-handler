@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ReplyKeyboardMaker {
+public class MainReplyKeyboardMaker {
 
   public static final String QUESTION_BUTTON_MESSAGE = "Вопросы Что,где когда?";
   public static final String COUPONS_BUTTON_MESSAGE = "Купоны, акции, скидки";

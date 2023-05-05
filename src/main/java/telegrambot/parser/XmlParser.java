@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface XmlParser {
 
-    Map<String, Object> processQuestionButton() throws JsonProcessingException;
+    Map<String, Object> processQuestionButton(Long chatId) throws JsonProcessingException;
 }

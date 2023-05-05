@@ -28,7 +28,7 @@ public class WeatherGPSMessageHandler implements MessageHandler {
             + "&lon="
             + message.getLocation().getLongitude();
 
-    sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL));
+    sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL, message.getChatId()));
     try {
       telegramBot.execute(sendMessage);
     } catch (TelegramApiException e) {

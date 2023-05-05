@@ -24,7 +24,7 @@ public class WeatherMinskMessageHandler implements MessageHandler {
 
   public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
     if (Scheduler.queueWeatherMinsk.isEmpty()) {
-      sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL));
+      sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL, message.getChatId()));
     } else {
       sendMessage.setText(Scheduler.queueWeatherMinsk.peek());
     }

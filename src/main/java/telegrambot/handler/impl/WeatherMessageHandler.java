@@ -20,7 +20,7 @@ public class WeatherMessageHandler implements MessageHandler {
   @Override
   public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
     sendMessage.setReplyMarkup(weatherInlineKeyboardMaker.getWeatherInlineKeyboard());
-    sendMessage.setText("Выберите город или текущее местоположение по GPS:");
+    sendMessage.setText("Выберите город:");
     try {
       telegramBot.execute(sendMessage);
     } catch (TelegramApiException e) {

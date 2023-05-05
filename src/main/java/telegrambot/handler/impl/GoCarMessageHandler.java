@@ -15,16 +15,16 @@ import telegrambot.keybord.GoCarInlineKeyboardMaker;
 @Data
 public class GoCarMessageHandler implements MessageHandler {
 
-    private final GoCarInlineKeyboardMaker goCarInlineKeyboardMaker;
+  private final GoCarInlineKeyboardMaker goCarInlineKeyboardMaker;
 
-    @Override
-    public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
-        sendMessage.setReplyMarkup(goCarInlineKeyboardMaker.getGoCarInlineKeyboard());
-        sendMessage.setText("Выберите направление:");
-        try {
-            telegramBot.execute(sendMessage);
-        } catch (TelegramApiException e) {
-            log.error("Exception during execute GO_CAR_BUTTON", e);
-        }
+  @Override
+  public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
+    sendMessage.setReplyMarkup(goCarInlineKeyboardMaker.getGoCarInlineKeyboard());
+    sendMessage.setText("Выберите направление:");
+    try {
+      telegramBot.execute(sendMessage);
+    } catch (TelegramApiException e) {
+      log.error("Exception during execute GO_CAR_BUTTON", e);
     }
+  }
 }

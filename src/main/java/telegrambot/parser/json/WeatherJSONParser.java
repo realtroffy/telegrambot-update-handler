@@ -14,8 +14,8 @@ public class WeatherJSONParser {
 
   private final WebClientService<Weather> webClientService;
 
-  public String getWeatherResponse(String url) {
-    ResponseEntity<Weather> weatherResponseEntity = webClientService.getResponseEntity(url);
+  public String getWeatherResponse(String url, Long chatId) {
+    ResponseEntity<Weather> weatherResponseEntity = webClientService.getResponseEntity(url, chatId);
     Weather weather = weatherResponseEntity.getBody();
 
     translateCondition(weather);

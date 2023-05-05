@@ -2,16 +2,13 @@ package telegrambot.parser.xmlimpl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Service;
-import telegrambot.error.GetBodyFromStringXmlException;
+import telegrambot.exception.GetBodyFromStringXmlException;
 import telegrambot.model.CHGKQuestion;
 import telegrambot.parser.XmlParser;
 import telegrambot.service.WebClientService;
@@ -37,16 +34,16 @@ public class CHGKXmlParser implements XmlParser {
 
   private final WebClientService<String> webClientService;
 
-  public Map<String, Object> processQuestionButton() throws JsonProcessingException {
+  public Map<String, Object> processQuestionButton(Long chatId) throws JsonProcessingException {
     Map<String, Object> questionInfo = new HashMap<>();
-    ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity(questionUrl);
+    ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity(questionUrl, chatId);
 
     if (stringQuestionXml != null) {
 
       String responseXml = stringQuestionXml.getBody();
       if (responseXml == null || responseXml.isEmpty()) {
         log.error(ERROR_XML_MESSAGE);
-        throw new GetBodyFromStringXmlException(ERROR_XML_MESSAGE);
+        throw new GetBodyFromStringXmlException(ERROR_XML_MESSAGE, chatId);
       }
 
       String withoutNewLine = responseXml.replace("\n", " ");

@@ -50,7 +50,7 @@ public class Scheduler {
   public void addCHGKQuestionToCashQueue() {
     if (chgkQueue.size() < 30) {
       try {
-        chgkQueue.add(chgkXmlParser.processQuestionButton());
+        chgkQueue.add(chgkXmlParser.processQuestionButton(null));
         log.info("Add chgk question info {}", LocalTime.now().format(timeFormat));
       } catch (Exception e) {
         log.error("Error during execute chgk scheduler {}", e.getMessage(), e);
@@ -89,7 +89,7 @@ public class Scheduler {
     if (!queueWeatherMinsk.isEmpty()) {
       queueWeatherMinsk.clear();
     }
-    queueWeatherMinsk.add(weatherJSONParser.getWeatherResponse(weatherUrlMinsk));
+    queueWeatherMinsk.add(weatherJSONParser.getWeatherResponse(weatherUrlMinsk, null));
     log.info("Add weather minsk info {}", LocalTime.now().format(timeFormat));
   }
 
@@ -98,7 +98,7 @@ public class Scheduler {
     if (!queueWeatherMogilev.isEmpty()) {
       queueWeatherMogilev.clear();
     }
-    queueWeatherMogilev.add(weatherJSONParser.getWeatherResponse(weatherUrlMogilev));
+    queueWeatherMogilev.add(weatherJSONParser.getWeatherResponse(weatherUrlMogilev, null));
     log.info("Add weather mogilev info {}", LocalTime.now().format(timeFormat));
   }
 }

@@ -34,7 +34,7 @@ public class CHGKMessageHandler implements MessageHandler {
 
     if (Scheduler.chgkQueue.isEmpty()) {
       try {
-        questionMap = chgkXmlParser.processQuestionButton();
+        questionMap = chgkXmlParser.processQuestionButton(message.getChatId());
       } catch (JsonProcessingException e) {
         log.error(ERROR_MESSAGE_CHGK_EXECUTOR, e);
       }
