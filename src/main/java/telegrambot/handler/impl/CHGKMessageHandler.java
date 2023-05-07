@@ -16,6 +16,7 @@ import telegrambot.timer.Scheduler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Data
@@ -30,18 +31,16 @@ public class CHGKMessageHandler implements MessageHandler {
 
   public void execute(Message message, SendMessage sendMessage, TelegramBot telegramBot) {
 
-    Map<String, Object> questionMap = new HashMap<>();
+    Map<String, Object> questionMap;
 
     if (Scheduler.chgkQueue.isEmpty()) {
-      try {
-        questionMap = chgkXmlParser.processQuestionButton(message.getChatId());
-      } catch (JsonProcessingException e) {
-        log.error(ERROR_MESSAGE_CHGK_EXECUTOR, e);
-      }
-
+      questionMap = chgkXmlParser.processQuestionButton(message.getChatId());
     } else {
       questionMap = Scheduler.chgkQueue.poll();
     }
+
+    CompletableFuture.supplyAsync(() -> chgkXmlParser.processQuestionButton(message.getChatId()))
+        .thenAccept(Scheduler.chgkQueue::add);
 
     String messageFromXml = (String) questionMap.get(KEY_QUESTION_COMPLETE);
     List<String> chgkPictureUrls = (List<String>) questionMap.get(KEY_PICTURE_QUESTION_URLS);

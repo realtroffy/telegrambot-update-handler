@@ -12,6 +12,7 @@ import telegrambot.exception.BadRequestException;
 import telegrambot.exception.GeneralAppException;
 import telegrambot.exception.GetBodyFromStringXmlException;
 import telegrambot.exception.ServerUnavailableException;
+import telegrambot.exception.XMLConvertingException;
 
 @ControllerAdvice
 @Data
@@ -23,7 +24,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({
     ServerUnavailableException.class,
     BadRequestException.class,
-    GetBodyFromStringXmlException.class
+    GetBodyFromStringXmlException.class,
+    XMLConvertingException.class
   })
   public void handleServerNotResponseException(GeneralAppException ex) throws TelegramApiException {
     SendMessage exceptionMessage = new SendMessage();

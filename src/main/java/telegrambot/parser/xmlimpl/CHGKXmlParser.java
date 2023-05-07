@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import telegrambot.exception.GetBodyFromStringXmlException;
+import telegrambot.exception.XMLConvertingException;
 import telegrambot.model.CHGKQuestion;
 import telegrambot.parser.XmlParser;
 import telegrambot.service.WebClientService;
@@ -34,9 +35,10 @@ public class CHGKXmlParser implements XmlParser {
 
   private final WebClientService<String> webClientService;
 
-  public Map<String, Object> processQuestionButton(Long chatId) throws JsonProcessingException {
+  public Map<String, Object> processQuestionButton(Long chatId) {
     Map<String, Object> questionInfo = new HashMap<>();
-    ResponseEntity<String> stringQuestionXml = webClientService.getResponseEntity(questionUrl, chatId);
+    ResponseEntity<String> stringQuestionXml =
+        webClientService.getResponseEntity(questionUrl, chatId);
 
     if (stringQuestionXml != null) {
 
@@ -47,7 +49,12 @@ public class CHGKXmlParser implements XmlParser {
       }
 
       String withoutNewLine = responseXml.replace("\n", " ");
-      CHGKQuestion chgkQuestion = convertStringXmlToCHGKQuestion(withoutNewLine);
+      CHGKQuestion chgkQuestion;
+      try {
+        chgkQuestion = convertStringXmlToCHGKQuestion(withoutNewLine);
+      } catch (JsonProcessingException e) {
+        throw new XMLConvertingException("Exception while converting xml in CHGKQuestion", chatId);
+      }
       questionInfo.put("pictureUrls", getPictureUrlIfPresent(chgkQuestion.getQuestion()));
 
       String completeQuestion =
