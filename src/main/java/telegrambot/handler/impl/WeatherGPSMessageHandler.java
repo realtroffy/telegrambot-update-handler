@@ -22,13 +22,19 @@ public class WeatherGPSMessageHandler implements MessageHandler {
 
     sendMessage.setChatId(message.getChatId());
 
-    String weatherURL =
-        "https://api.weather.yandex.ru/v2/informers?lat="
-            + message.getLocation().getLatitude()
-            + "&lon="
-            + message.getLocation().getLongitude();
+    if (message.getLocation() == null) {
+      sendMessage.setText("Вы не отправили текущие координаты");
+    } else {
 
-    sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL, message.getChatId()));
+      String weatherURL =
+          "https://api.weather.yandex.ru/v2/informers?lat="
+              + message.getLocation().getLatitude()
+              + "&lon="
+              + message.getLocation().getLongitude();
+
+      sendMessage.setText(weatherJSONParser.getWeatherResponse(weatherURL, message.getChatId()));
+    }
+
     try {
       telegramBot.execute(sendMessage);
     } catch (TelegramApiException e) {

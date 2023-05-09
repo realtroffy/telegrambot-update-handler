@@ -1,6 +1,5 @@
 package telegrambot.component;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
