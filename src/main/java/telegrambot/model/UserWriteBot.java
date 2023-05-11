@@ -19,7 +19,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+
+import static java.time.ZoneId.of;
 
 @Entity
 @Table
@@ -51,7 +52,7 @@ public class UserWriteBot implements Serializable {
 
   @PrePersist
   public void onCreate() {
-    this.dateMessage = LocalDateTime.now(ZoneId.of("UTC+3"));
+    this.dateMessage = LocalDateTime.now(of("Europe/Minsk"));
   }
 
   @Override
