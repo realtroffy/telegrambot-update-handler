@@ -22,7 +22,6 @@ import static java.time.ZoneId.of;
 
 @ControllerAdvice
 @Data
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class GlobalExceptionHandler {
 
   private static final String EMAIL_SUBJECT = "NullPointer was occurred";
@@ -32,8 +31,8 @@ public class GlobalExceptionHandler {
   @Value("${email.receiver}")
   private String emailReceiver;
 
-  TelegramBot telegramBot;
-  EmailService emailService;
+  private final TelegramBot telegramBot;
+  private final EmailService emailService;
 
   @ExceptionHandler({
     ServerUnavailableException.class,
