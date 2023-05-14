@@ -42,4 +42,5 @@ jobs:
           EMAIL_SENDER_NAME: ${{secrets.EMAIL_SENDER_NAME}}
           EMAIL_SENDER_PASSWORD: ${{secrets.EMAIL_SENDER_PASSWORD}}
           EMAIL_RECEIVER_NAME: ${{secrets.EMAIL_RECEIVER_NAME}}
+          YANDEX_WEATHER_TOKEN: ${{secrets.YANDEX_WEATHER_TOKEN}}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=realtroffy_telegrambot-update-handler -Dsonar.organization=realtroffy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml

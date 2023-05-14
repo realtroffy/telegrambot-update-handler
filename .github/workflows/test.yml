@@ -33,6 +33,7 @@ jobs:
             EMAIL_SENDER_NAME: ${{secrets.EMAIL_SENDER_NAME}}
             EMAIL_SENDER_PASSWORD: ${{secrets.EMAIL_SENDER_PASSWORD}}
             EMAIL_RECEIVER_NAME: ${{secrets.EMAIL_RECEIVER_NAME}}
+            YANDEX_WEATHER_TOKEN: ${{secrets.YANDEX_WEATHER_TOKEN}}
 
         run: mvn -B clean verify
       - name: Test Coverage
