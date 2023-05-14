@@ -32,12 +32,12 @@ jobs:
             PGPORT: ${{secrets.PGPORT}}
             PGDATABASE: ${{secrets.PGDATABASE}}
             PGUSER: ${{secrets.PGUSER}}
-            PGPASSWORD: ${{secrets.PGHOST}}
-            EMAIL_SENDER_NAME: ${{secrets.PGHOST}}
-            EMAIL_SENDER_PASSWORD: ${{secrets.PGHOST}}
-            EMAIL_RECEIVER_NAME: ${{secrets.PGHOST}}
+            PGPASSWORD: ${{secrets.PGPASSWORD}}
+            EMAIL_SENDER_NAME: ${{secrets.EMAIL_SENDER_NAME}}
+            EMAIL_SENDER_PASSWORD: ${{secrets.EMAIL_SENDER_PASSWORD}}
+            EMAIL_RECEIVER_NAME: ${{secrets.EMAIL_RECEIVER_NAME}}
 
-        run:  mvn -B clean verify
+        run: mvn -B clean verify
       - name: Test Coverage
         uses: codecov/codecov-action@v3
 
