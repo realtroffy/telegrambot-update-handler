@@ -1,5 +1,10 @@
 package telegrambot.service.impl;
 
+import org.apache.logging.log4j.message.SimpleMessage;
+import org.apache.logging.log4j.util.Strings;
+import org.jsoup.Connection;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +25,7 @@ class EmailServiceImplTest {
   void sendMailTest() {
     Mockito.doNothing().when(javaMailSender).send(Mockito.any(SimpleMailMessage.class));
 
-    emailService.sendEmail("", "", "");
+    emailService.sendEmail(Strings.EMPTY, Strings.EMPTY, Strings.EMPTY);
 
     Mockito.verify(javaMailSender).send(Mockito.any(SimpleMailMessage.class));
   }
