@@ -37,4 +37,12 @@ jobs:
           TELEGRAMBOT_TOKEN: ${{secrets.TELEGRAMBOT_TOKEN}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          PGHOST: ${{secrets.PGHOST}}
+          PGPORT: ${{secrets.PGPORT}}
+          PGDATABASE: ${{secrets.PGDATABASE}}
+          PGUSER: ${{secrets.PGUSER}}
+          PGPASSWORD: ${{secrets.PGHOST}}
+          EMAIL_SENDER_NAME: ${{secrets.PGHOST}}
+          EMAIL_SENDER_PASSWORD: ${{secrets.PGHOST}}
+          EMAIL_RECEIVER_NAME: ${{secrets.PGHOST}}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=realtroffy_telegrambot-update-handler -Dsonar.organization=realtroffy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
