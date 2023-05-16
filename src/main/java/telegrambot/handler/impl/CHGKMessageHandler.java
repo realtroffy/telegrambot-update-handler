@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import telegrambot.component.TelegramBot;
+import telegrambot.exception.GetBodyFromStringXmlException;
 import telegrambot.executor.ExecutorSendPhotoUtil;
 import telegrambot.handler.MessageHandler;
 import telegrambot.parser.xmlimpl.CHGKXmlParser;
@@ -40,7 +41,15 @@ public class CHGKMessageHandler implements MessageHandler {
     }
 
     CompletableFuture.supplyAsync(() -> chgkXmlParser.processQuestionButton(message.getChatId()))
-        .thenAccept(Scheduler.chgkQueue::add);
+        .whenComplete(
+            (result, exception) -> {
+              if (exception != null) {
+                throw new GetBodyFromStringXmlException(
+                    "Exception during parse XML chgk question", message.getChatId());
+              } else {
+                Scheduler.chgkQueue.add(result);
+              }
+            });
 
     String messageFromXml = (String) questionMap.get(KEY_QUESTION_COMPLETE);
     List<String> chgkPictureUrls = (List<String>) questionMap.get(KEY_PICTURE_QUESTION_URLS);
