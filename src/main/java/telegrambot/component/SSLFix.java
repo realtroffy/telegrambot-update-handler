@@ -1,3 +1,4 @@
+/*
 package telegrambot.component;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,8 @@ import java.security.cert.X509Certificate;
 
 @Component
 public class SSLFix {
-  /*
+  */
+/*
      @PostConstruct
      public static void execute(){
      TrustManager[] trustAllCerts =
@@ -59,7 +61,8 @@ public class SSLFix {
          // All hosts will be valid
          HttpsURLConnection.setDefaultHostnameVerifier(validHosts);
      }
-  */
+  *//*
+
 
   @PostConstruct
   public static void addCertificateToTrustStore()
@@ -87,3 +90,4 @@ public class SSLFix {
     fileOutputStream.close();
   }
 }
+*/
