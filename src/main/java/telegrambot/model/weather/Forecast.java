@@ -1,140 +1,55 @@
 package telegrambot.model.weather;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "date",
-        "date_ts",
-        "week",
-        "sunrise",
-        "sunset",
-        "moon_code",
-        "moon_text",
-        "parts"
+  "date",
+  "date_ts",
+  "week",
+  "sunrise",
+  "sunset",
+  "moon_code",
+  "moon_text",
+  "parts"
 })
 @Data
 public class Forecast implements Serializable {
 
-    private static final long serialVersionUID = -1938473937554563210L;
+  private static final long serialVersionUID = -1938473937554563210L;
 
-    @JsonProperty("date")
-    private String date;
-    @JsonProperty("date_ts")
-    private Integer dateTs;
-    @JsonProperty("week")
-    private Integer week;
-    @JsonProperty("sunrise")
-    private String sunrise;
-    @JsonProperty("sunset")
-    private String sunset;
-    @JsonProperty("moon_code")
-    private Integer moonCode;
-    @JsonProperty("moon_text")
-    private String moonText;
-    @JsonProperty("parts")
-    private List<Part> parts = null;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  @JsonProperty("date")
+  private String date;
 
-    /*@JsonProperty("date")
-    public String getDate() {
-        return date;
-    }
+  @JsonProperty("date_ts")
+  private Integer dateTs;
 
-    @JsonProperty("date")
-    public void setDate(String date) {
-        this.date = date;
-    }
+  @JsonProperty("week")
+  private Integer week;
 
-    @JsonProperty("date_ts")
-    public Integer getDateTs() {
-        return dateTs;
-    }
+  @JsonProperty("sunrise")
+  private String sunrise;
 
-    @JsonProperty("date_ts")
-    public void setDateTs(Integer dateTs) {
-        this.dateTs = dateTs;
-    }
+  @JsonProperty("sunset")
+  private String sunset;
 
-    @JsonProperty("week")
-    public Integer getWeek() {
-        return week;
-    }
+  @JsonProperty("moon_code")
+  private Integer moonCode;
 
-    @JsonProperty("week")
-    public void setWeek(Integer week) {
-        this.week = week;
-    }
+  @JsonProperty("moon_text")
+  private String moonText;
 
-    @JsonProperty("sunrise")
-    public String getSunrise() {
-        return sunrise;
-    }
+  @JsonProperty("parts")
+  private List<Part> parts = null;
 
-    @JsonProperty("sunrise")
-    public void setSunrise(String sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    @JsonProperty("sunset")
-    public String getSunset() {
-        return sunset;
-    }
-
-    @JsonProperty("sunset")
-    public void setSunset(String sunset) {
-        this.sunset = sunset;
-    }
-
-    @JsonProperty("moon_code")
-    public Integer getMoonCode() {
-        return moonCode;
-    }
-
-    @JsonProperty("moon_code")
-    public void setMoonCode(Integer moonCode) {
-        this.moonCode = moonCode;
-    }
-
-    @JsonProperty("moon_text")
-    public String getMoonText() {
-        return moonText;
-    }
-
-    @JsonProperty("moon_text")
-    public void setMoonText(String moonText) {
-        this.moonText = moonText;
-    }
-
-    @JsonProperty("parts")
-    public List<Part> getParts() {
-        return parts;
-    }
-
-    @JsonProperty("parts")
-    public void setParts(List<Part> parts) {
-        this.parts = parts;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }*/
-
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 }

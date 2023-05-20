@@ -19,17 +19,18 @@ import static reactor.core.publisher.Mono.error;
 @Service
 public class WeatherClientServiceImpl implements WebClientService<Weather> {
 
-  private String yandexWeatherToken;
-
+  private final String yandexWeatherToken;
   private final WebClient webClient;
 
   @Autowired
-  public WeatherClientServiceImpl(WebClient webClient) {
+  public WeatherClientServiceImpl(
+      @Value("${YANDEX_WEATHER_TOKEN}") String yandexWeatherToken, WebClient webClient) {
     this.webClient = webClient;
+    this.yandexWeatherToken = yandexWeatherToken;
   }
 
   public WeatherClientServiceImpl(
-      String weatherUrl, @Value("${YANDEX_WEATHER_TOKEN}") String yandexWeatherToken) {
+      @Value("${YANDEX_WEATHER_TOKEN}") String yandexWeatherToken, String weatherUrl) {
     this.webClient = create(weatherUrl);
     this.yandexWeatherToken = yandexWeatherToken;
   }

@@ -39,7 +39,7 @@ class WeatherClientServiceImplIT {
 
   @BeforeEach
   public void initialize() {
-    weatherClientService = new WeatherClientServiceImpl(mockBackEnd.url("/").toString(), EMPTY);
+    weatherClientService = new WeatherClientServiceImpl(EMPTY, mockBackEnd.url("/").toString());
   }
 
   @Test
