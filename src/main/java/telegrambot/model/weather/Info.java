@@ -1,14 +1,15 @@
 package telegrambot.model.weather;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -16,7 +17,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "lat",
         "lon"
 })
-public class Info {
+@Data
+public class Info implements Serializable {
+
+    private static final long serialVersionUID = -800190315564606570L;
 
     @JsonProperty("url")
     private String url;
@@ -26,7 +30,7 @@ public class Info {
     private Double lon;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+/*
     @JsonProperty("url")
     public String getUrl() {
         return url;
@@ -66,4 +70,6 @@ public class Info {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+ */
 }

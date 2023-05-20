@@ -1,7 +1,10 @@
 package telegrambot.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import telegrambot.exception.BadRequestException;
 import telegrambot.exception.ServerUnavailableException;
+import telegrambot.model.weather.Weather;
 
 import java.io.IOException;
 
@@ -16,12 +20,11 @@ import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class CHGKWebClientServiceImplIT {
+class WeatherClientServiceImplIT {
 
   public static MockWebServer mockBackEnd;
-  public static final Long TEST_CHAT_ID = 1L;
 
-  private CHGKWebClientServiceImpl chgkWebClientServiceImpl;
+  private WeatherClientServiceImpl weatherClientService;
 
   @BeforeAll
   public static void setUp() throws IOException {
@@ -36,18 +39,25 @@ class CHGKWebClientServiceImplIT {
 
   @BeforeEach
   public void initialize() {
-    chgkWebClientServiceImpl = new CHGKWebClientServiceImpl(mockBackEnd.url("/").toString());
+    weatherClientService = new WeatherClientServiceImpl(mockBackEnd.url("/").toString(), EMPTY);
   }
 
   @Test
-  void getResponseEntityWhenHasNoException() {
-    String entityAnswer = "Some string";
-    mockBackEnd.enqueue(new MockResponse().setBody(entityAnswer));
+  void getResponseEntityTest_Ok() throws InterruptedException, JsonProcessingException {
+    Weather entityAnswer = new Weather();
+    entityAnswer.setNowDt("test");
+    mockBackEnd.enqueue(
+        new MockResponse()
+            .setBody(new ObjectMapper().writeValueAsString(entityAnswer))
+            .setHeader("Content-Type", "application/json")
+            .setResponseCode(200));
 
-    ResponseEntity<String> responseEntity =
-        chgkWebClientServiceImpl.getResponseEntity(EMPTY, TEST_CHAT_ID);
+    ResponseEntity<Weather> responseEntity = weatherClientService.getResponseEntity("/", 1L);
 
-    assertEquals("Some string", responseEntity.getBody());
+    RecordedRequest recordedRequest = mockBackEnd.takeRequest();
+    assertEquals("/", recordedRequest.getPath());
+    assertEquals("GET", recordedRequest.getMethod());
+    assertEquals(entityAnswer, responseEntity.getBody());
   }
 
   @Test
@@ -55,17 +65,14 @@ class CHGKWebClientServiceImplIT {
     mockBackEnd.enqueue(new MockResponse().setResponseCode(400));
 
     assertThrows(
-        BadRequestException.class,
-        () -> chgkWebClientServiceImpl.getResponseEntity(EMPTY, TEST_CHAT_ID));
+        BadRequestException.class, () -> weatherClientService.getResponseEntity(EMPTY, 1L));
   }
 
   @Test
   void throwServerUnavailableExceptionWhenStatusCode5xx() {
-
     mockBackEnd.enqueue(new MockResponse().setResponseCode(500));
 
     assertThrows(
-        ServerUnavailableException.class,
-        () -> chgkWebClientServiceImpl.getResponseEntity(EMPTY, TEST_CHAT_ID));
+        ServerUnavailableException.class, () -> weatherClientService.getResponseEntity(EMPTY, 1L));
   }
 }
