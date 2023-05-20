@@ -62,7 +62,7 @@ public class SSLFix {
   */
 
   @PostConstruct
-  public static void addCertificateToTrustStore(String certificatePath, String certificateAlias)
+  public static void addCertificateToTrustStore()
       throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException {
 
     KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
