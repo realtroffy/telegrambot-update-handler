@@ -1,6 +1,6 @@
 package telegrambot.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,21 +11,13 @@ import telegrambot.service.WebClientService;
 
 import java.time.Duration;
 
-import static reactor.core.publisher.Mono.*;
+import static reactor.core.publisher.Mono.error;
 
 @Service
+@Data
 public class CHGKWebClientServiceImpl implements WebClientService<String> {
 
   private final WebClient webClient;
-
-  @Autowired
-  public CHGKWebClientServiceImpl(WebClient webClient) {
-    this.webClient = webClient;
-  }
-
-  public CHGKWebClientServiceImpl(String questionUrl) {
-    this.webClient = WebClient.create(questionUrl);
-  }
 
   @Override
   public ResponseEntity<String> getResponseEntity(String url, Long chatId) {

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.reactive.function.client.WebClient;
 import telegrambot.exception.BadRequestException;
 import telegrambot.exception.ServerUnavailableException;
 import telegrambot.model.weather.Weather;
@@ -39,7 +40,8 @@ class WeatherClientServiceImplIT {
 
   @BeforeEach
   public void initialize() {
-    weatherClientService = new WeatherClientServiceImpl(EMPTY, mockBackEnd.url("/").toString());
+    weatherClientService =
+        new WeatherClientServiceImpl(EMPTY, WebClient.create(mockBackEnd.url("/").toString()));
   }
 
   @Test

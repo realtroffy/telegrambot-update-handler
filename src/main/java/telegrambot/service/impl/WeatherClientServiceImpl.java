@@ -1,6 +1,5 @@
 package telegrambot.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +12,19 @@ import telegrambot.service.WebClientService;
 
 import java.time.Duration;
 
-import static org.springframework.web.reactive.function.client.WebClient.create;
 import static reactor.core.publisher.Mono.error;
 
 @Service
 public class WeatherClientServiceImpl implements WebClientService<Weather> {
 
+  @Value("${YANDEX_WEATHER_TOKEN}")
   private final String yandexWeatherToken;
   private final WebClient webClient;
 
-  @Autowired
   public WeatherClientServiceImpl(
       @Value("${YANDEX_WEATHER_TOKEN}") String yandexWeatherToken, WebClient webClient) {
+    this.yandexWeatherToken = yandexWeatherToken;
     this.webClient = webClient;
-    this.yandexWeatherToken = yandexWeatherToken;
-  }
-
-  public WeatherClientServiceImpl(
-      @Value("${YANDEX_WEATHER_TOKEN}") String yandexWeatherToken, String weatherUrl) {
-    this.webClient = create(weatherUrl);
-    this.yandexWeatherToken = yandexWeatherToken;
   }
 
   @Override

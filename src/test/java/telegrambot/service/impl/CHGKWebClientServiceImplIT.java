@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.reactive.function.client.WebClient;
 import telegrambot.exception.BadRequestException;
 import telegrambot.exception.ServerUnavailableException;
 
@@ -36,7 +37,8 @@ class CHGKWebClientServiceImplIT {
 
   @BeforeEach
   public void initialize() {
-    chgkWebClientServiceImpl = new CHGKWebClientServiceImpl(mockBackEnd.url("/").toString());
+    chgkWebClientServiceImpl =
+        new CHGKWebClientServiceImpl(WebClient.create(mockBackEnd.url("/").toString()));
   }
 
   @Test
