@@ -133,10 +133,6 @@
                         </exclude>
                     </excludes>
                     <executable>true</executable>
-                    <jvmArguments>
-                        -Xmx300m
-                        -Xss512k
-                    </jvmArguments>
                 </configuration>
                 <executions>
                     <execution>

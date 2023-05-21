@@ -9,13 +9,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jsoup.Jsoup.connect;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,10 +31,10 @@ class DocumentHtmlParserServiceImplTest {
 
   @Test
   void getDocumentFromUrlTest() throws IOException {
-    try (MockedStatic<Jsoup> utilities = Mockito.mockStatic(Jsoup.class)) {
-      utilities.when(() -> Jsoup.connect(anyString())).thenReturn(connection);
+    try (MockedStatic<Jsoup> utilities = mockStatic(Jsoup.class)) {
+      utilities.when(() -> connect(anyString())).thenReturn(connection);
       utilities.when(connection::get).thenReturn(document);
-      assertThat(Jsoup.connect(anyString()).get()).isEqualTo(document);
+      assertThat(connect(anyString()).get()).isEqualTo(document);
     }
   }
 

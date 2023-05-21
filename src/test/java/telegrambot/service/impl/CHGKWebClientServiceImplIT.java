@@ -16,6 +16,8 @@ import java.io.IOException;
 import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 class CHGKWebClientServiceImplIT {
 
@@ -54,7 +56,7 @@ class CHGKWebClientServiceImplIT {
 
   @Test
   void throwBadRequestExceptionWhenStatusCode4xx() {
-    mockBackEnd.enqueue(new MockResponse().setResponseCode(400));
+    mockBackEnd.enqueue(new MockResponse().setResponseCode(BAD_REQUEST.value()));
 
     assertThrows(
         BadRequestException.class,
@@ -64,7 +66,7 @@ class CHGKWebClientServiceImplIT {
   @Test
   void throwServerUnavailableExceptionWhenStatusCode5xx() {
 
-    mockBackEnd.enqueue(new MockResponse().setResponseCode(500));
+    mockBackEnd.enqueue(new MockResponse().setResponseCode(INTERNAL_SERVER_ERROR.value()));
 
     assertThrows(
         ServerUnavailableException.class,

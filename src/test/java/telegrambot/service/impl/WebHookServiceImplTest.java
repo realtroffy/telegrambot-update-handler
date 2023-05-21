@@ -22,6 +22,8 @@ import static org.mockito.Mockito.when;
 @TestInstance(Lifecycle.PER_CLASS)
 class WebHookServiceImplTest {
 
+  public static final long TEST_CHAT_ID = 1L;
+
   @Mock private UserVisitRepository userVisitRepository;
   @Mock private UserWriteBot userWriteBot;
 
@@ -50,7 +52,7 @@ class WebHookServiceImplTest {
     update.setMessage(message);
 
     userWriteBot = new UserWriteBot();
-    userWriteBot.setId(1L);
+    userWriteBot.setId(TEST_CHAT_ID);
     userWriteBot.setFirstName(user.getFirstName());
     userWriteBot.setLastName(user.getLastName());
     userWriteBot.setButtonName(message.getText());

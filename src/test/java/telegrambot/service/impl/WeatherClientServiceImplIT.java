@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.reactive.function.client.WebClient;
 import telegrambot.exception.BadRequestException;
 import telegrambot.exception.ServerUnavailableException;
 import telegrambot.model.weather.Weather;
@@ -20,10 +19,15 @@ import java.io.IOException;
 import static org.apache.logging.log4j.util.Strings.EMPTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.reactive.function.client.WebClient.create;
 
 class WeatherClientServiceImplIT {
 
   public static MockWebServer mockBackEnd;
+  public static final long TEST_CHAT_ID = 1L;
 
   private WeatherClientServiceImpl weatherClientService;
 
@@ -41,7 +45,7 @@ class WeatherClientServiceImplIT {
   @BeforeEach
   public void initialize() {
     weatherClientService =
-        new WeatherClientServiceImpl(EMPTY, WebClient.create(mockBackEnd.url("/").toString()));
+        new WeatherClientServiceImpl(EMPTY, create(mockBackEnd.url("/").toString()));
   }
 
   @Test
@@ -52,9 +56,10 @@ class WeatherClientServiceImplIT {
         new MockResponse()
             .setBody(new ObjectMapper().writeValueAsString(entityAnswer))
             .setHeader("Content-Type", "application/json")
-            .setResponseCode(200));
+            .setResponseCode(OK.value()));
 
-    ResponseEntity<Weather> responseEntity = weatherClientService.getResponseEntity("/", 1L);
+    ResponseEntity<Weather> responseEntity =
+        weatherClientService.getResponseEntity("/", TEST_CHAT_ID);
 
     RecordedRequest recordedRequest = mockBackEnd.takeRequest();
     assertEquals("/", recordedRequest.getPath());
@@ -64,17 +69,19 @@ class WeatherClientServiceImplIT {
 
   @Test
   void throwBadRequestExceptionWhenStatusCode4xx() {
-    mockBackEnd.enqueue(new MockResponse().setResponseCode(400));
+    mockBackEnd.enqueue(new MockResponse().setResponseCode(BAD_REQUEST.value()));
 
     assertThrows(
-        BadRequestException.class, () -> weatherClientService.getResponseEntity(EMPTY, 1L));
+        BadRequestException.class,
+        () -> weatherClientService.getResponseEntity(EMPTY, TEST_CHAT_ID));
   }
 
   @Test
   void throwServerUnavailableExceptionWhenStatusCode5xx() {
-    mockBackEnd.enqueue(new MockResponse().setResponseCode(500));
+    mockBackEnd.enqueue(new MockResponse().setResponseCode(INTERNAL_SERVER_ERROR.value()));
 
     assertThrows(
-        ServerUnavailableException.class, () -> weatherClientService.getResponseEntity(EMPTY, 1L));
+        ServerUnavailableException.class,
+        () -> weatherClientService.getResponseEntity(EMPTY, TEST_CHAT_ID));
   }
 }

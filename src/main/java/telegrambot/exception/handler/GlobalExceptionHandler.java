@@ -1,8 +1,6 @@
 package telegrambot.exception.handler;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +10,7 @@ import telegrambot.component.TelegramBot;
 import telegrambot.exception.BadRequestException;
 import telegrambot.exception.GeneralAppException;
 import telegrambot.exception.GetBodyFromStringXmlException;
+import telegrambot.exception.ResponseWebClientNullException;
 import telegrambot.exception.ServerUnavailableException;
 import telegrambot.exception.XMLConvertingException;
 import telegrambot.service.EmailService;
@@ -38,7 +37,8 @@ public class GlobalExceptionHandler {
     ServerUnavailableException.class,
     BadRequestException.class,
     GetBodyFromStringXmlException.class,
-    XMLConvertingException.class
+    XMLConvertingException.class,
+    ResponseWebClientNullException.class
   })
   public void handleServerNotResponseException(GeneralAppException ex) throws TelegramApiException {
     SendMessage exceptionMessage = new SendMessage();

@@ -17,7 +17,6 @@ import static reactor.core.publisher.Mono.error;
 @Service
 public class WeatherClientServiceImpl implements WebClientService<Weather> {
 
-  @Value("${YANDEX_WEATHER_TOKEN}")
   private final String yandexWeatherToken;
   private final WebClient webClient;
 
